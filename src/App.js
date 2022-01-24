@@ -1,4 +1,4 @@
-// normal effect
+// dependency array
 import { useState, useEffect } from "react";
 
 const card = {
@@ -11,6 +11,7 @@ const card = {
 
 function App() {
   const [users, setUsers] = useState(null);
+  const [txt, setTxt] = useState("");
 
   useEffect(() => {
     async function getUsers() {
@@ -20,13 +21,19 @@ function App() {
       setUsers(result);
     }
 
-    getUsers();
-  });
+    if (users == null) {
+      setTxt("loading people data...");
+    }
+
+    setTimeout(() => {
+      getUsers();
+    }, 5000);
+  }, [users]);
 
   if (users == null) {
     return (
       <div style={card}>
-        <h1> loading...</h1>
+        <h1> {txt} </h1>
       </div>
     );
   }
@@ -34,7 +41,7 @@ function App() {
   return (
     <div>
       {users.map((user) => (
-        <div key={user.id} style={card}>
+        <div key={user.username} style={card}>
           <h2> {user.username}</h2>
         </div>
       ))}
