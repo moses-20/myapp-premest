@@ -1,4 +1,4 @@
-// dependency array
+// cleanup function
 import { useState, useEffect } from "react";
 
 const card = {
@@ -12,6 +12,7 @@ const card = {
 function App() {
   const [users, setUsers] = useState(null);
   const [txt, setTxt] = useState("");
+  const [wait, setWait] = useState(5);
 
   useEffect(() => {
     async function getUsers() {
@@ -28,12 +29,21 @@ function App() {
     setTimeout(() => {
       getUsers();
     }, 5000);
-  }, [users]);
+
+    let timeID = setInterval(() => {
+      setWait(wait - 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(timeID);
+    };
+  }, [users, wait]);
 
   if (users == null) {
     return (
       <div style={card}>
-        <h1> {txt} </h1>
+        <h1 style={{ textAlign: "center" }}> {txt} </h1>
+        <h1 style={{ textAlign: "center" }}> {wait} </h1>
       </div>
     );
   }
