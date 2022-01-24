@@ -1,60 +1,46 @@
-// cleanup function
-import { useState, useEffect } from "react";
-
-const card = {
-  width: "300px",
-  margin: "15px auto",
-  padding: "20px",
-  backgroundColor: "#4cf",
-  textAlign: "center"
-};
+// plain data management
+import { useState } from "react";
 
 function App() {
-  const [users, setUsers] = useState(null);
-  const [txt, setTxt] = useState("");
-  const [wait, setWait] = useState(5);
+  const [user, setUser] = useState({
+    fname: "",
+    lname: ""
+  });
 
-  useEffect(() => {
-    async function getUsers() {
-      let response = await fetch("users.json");
-      let result = await response.json();
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
 
-      setUsers(result);
-    }
+  const handleFname = (e) => {
+    setFname(e.target.value);
+  };
 
-    if (users == null) {
-      setTxt("loading people data...");
-    }
+  const handleLname = (e) => {
+    setLname(e.target.value);
+  };
 
-    setTimeout(() => {
-      getUsers();
-    }, 5000);
-
-    let timeID = setInterval(() => {
-      setWait(wait - 1);
-    }, 1000);
-
-    return () => {
-      clearInterval(timeID);
-    };
-  }, [users, wait]);
-
-  if (users == null) {
-    return (
-      <div style={card}>
-        <h1 style={{ textAlign: "center" }}> {txt} </h1>
-        <h1 style={{ textAlign: "center" }}> {wait} </h1>
-      </div>
-    );
-  }
+  const handleUser = () => {
+    setUser({
+      fname: fname,
+      lname: lname
+    });
+  };
 
   return (
-    <div>
-      {users.map((user) => (
-        <div key={user.username} style={card}>
-          <h2> {user.username}</h2>
+    <div className="app">
+      <div className="form">
+        <div className="wrap">
+          <input type="text" value={fname} onChange={handleFname} />
         </div>
-      ))}
+        <div className="wrap">
+          <input type="text" value={lname} onChange={handleLname} />
+        </div>
+        <button onClick={handleUser}> Submit </button>
+      </div>
+
+      <div className="info">
+        <h2>{user.fname}</h2>
+        <h2>{user.lname}</h2>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,29 @@
+.app {
+  display: flex;
+  flex-direction: row;
+}
+
+.form {
+  flex: 1;
+  padding: 10px 20px;
+  background-color: aquamarine;
+}
+
+.info {
+  flex: 1;
+  padding: 10px 20px;
+  background-color: salmon;
+}
+
+.wrap {
+  margin: 15px 0;
+}
+
+input {
+  font-size: 25px;
+}
+
+button {
+  padding: 10px;
+  width: 100px;
+}
