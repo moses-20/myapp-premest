@@ -2,12 +2,18 @@ import { useContext } from "react";
 import { UserContext } from "../context/user.context";
 
 function UserInfo() {
-  const { user } = useContext(UserContext);
+  const { store } = useContext(UserContext);
 
   return (
     <div className="info">
-      <h2>{user.fname}</h2>
-      <h2>{user.lname}</h2>
+      {store.map((user) => (
+        <div className="card" key={user.email}>
+          <h2>
+            {user.fname} {user.lname}
+          </h2>
+          <p>{user.email}</p>
+        </div>
+      ))}
     </div>
   );
 }

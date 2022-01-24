@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { UserContext } from "../context/user.context";
 
 function UserForm() {
-  const { user, handleChange, handleReset } = useContext(UserContext);
+  const { user, handleChange, handleReset, handleUser } =
+    useContext(UserContext);
 
   return (
     <div className="form">
@@ -22,7 +23,18 @@ function UserForm() {
           onChange={handleChange}
         />
       </div>
-      <button onClick={handleReset}>Reset</button>
+      <div className="wrap">
+        <input
+          name="email"
+          type="email"
+          value={user.email}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="btns">
+        <button onClick={handleReset}>Reset</button>
+        <button onClick={handleUser}>Submit</button>
+      </div>
     </div>
   );
 }
