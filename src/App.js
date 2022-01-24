@@ -1,4 +1,4 @@
-// plain data management
+// optimised data management
 import { useState } from "react";
 
 function App() {
@@ -7,21 +7,23 @@ function App() {
     lname: ""
   });
 
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-
-  const handleFname = (e) => {
-    setFname(e.target.value);
-  };
-
-  const handleLname = (e) => {
-    setLname(e.target.value);
-  };
-
-  const handleUser = () => {
+  const handleChange = (e) => {
     setUser({
-      fname: fname,
-      lname: lname
+      [e.target.name]: e.target.value
+    });
+  };
+
+  // const handleChange = (e) => {
+  //   setUser((prev) => ({
+  //     ...prev,
+  //     [e.target.name]: e.target.value
+  //   }));
+  // };
+
+  const handleReset = () => {
+    setUser({
+      fname: "",
+      lname: ""
     });
   };
 
@@ -29,12 +31,22 @@ function App() {
     <div className="app">
       <div className="form">
         <div className="wrap">
-          <input type="text" value={fname} onChange={handleFname} />
+          <input
+            name="fname"
+            type="text"
+            value={user.fname}
+            onChange={handleChange}
+          />
         </div>
         <div className="wrap">
-          <input type="text" value={lname} onChange={handleLname} />
+          <input
+            name="lname"
+            type="text"
+            value={user.lname}
+            onChange={handleChange}
+          />
         </div>
-        <button onClick={handleUser}> Submit </button>
+        <button onClick={handleReset}>Reset</button>
       </div>
 
       <div className="info">
